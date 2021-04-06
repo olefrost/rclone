@@ -41,9 +41,9 @@ var configCommand = &cobra.Command{
 remotes and manage existing ones. You may also set or remove a
 password to protect your configuration.
 `,
-	Run: func(command *cobra.Command, args []string) {
+	RunE: func(command *cobra.Command, args []string) error {
 		cmd.CheckArgs(0, 0, command, args)
-		config.EditConfig(context.Background())
+		return config.EditConfig(context.Background())
 	},
 }
 
@@ -262,8 +262,7 @@ This normally means going through the interactive oauth flow again.
 		if fsInfo.Config == nil {
 			return errors.Errorf("%s: doesn't support Reconnect", configName)
 		}
-		fsInfo.Config(ctx, configName, config)
-		return nil
+		return fsInfo.Config(ctx, configName, config)
 	},
 }
 

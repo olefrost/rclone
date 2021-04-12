@@ -43,7 +43,7 @@ func testConfigFile(t *testing.T, configFileName string) func() {
 	config.ConfigPath = path
 	ci = &fs.ConfigInfo{}
 
-	configfile.LoadConfig(ctx)
+	require.NoError(t, configfile.LoadConfig(ctx))
 	assert.Equal(t, []string{}, config.Data.GetSectionList())
 
 	// Fake a remote

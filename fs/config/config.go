@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	mathrand "math/rand"
 	"os"
 	"path/filepath"
@@ -213,7 +212,7 @@ func makeConfigPath() string {
 }
 
 // LoadConfig loads the config file
-func LoadConfig(ctx context.Context) {
+func LoadConfig(ctx context.Context) error {
 	// Set RCLONE_CONFIG_DIR for backend config and subprocesses
 	_ = os.Setenv("RCLONE_CONFIG_DIR", filepath.Dir(ConfigPath))
 
@@ -221,10 +220,12 @@ func LoadConfig(ctx context.Context) {
 	if err := Data.Load(); err == ErrorConfigFileNotFound {
 		fs.Logf(nil, "Config file %q not found - using defaults", ConfigPath)
 	} else if err != nil {
-		log.Fatalf("Failed to load config file %q: %v", ConfigPath, err)
+		fs.Errorf(nil, "Failed to load config file %q: %v", ConfigPath, err)
+		return errors.Wrap(err, "failed to load config file")
 	} else {
 		fs.Debugf(nil, "Using config file from %q", ConfigPath)
 	}
+	return nil
 }
 
 // ErrorConfigFileNotFound is returned when the config file is not found

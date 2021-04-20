@@ -1547,7 +1547,8 @@ func s3Connection(ctx context.Context, opt *Options, client *http.Client) (*s3.S
 		WithHTTPClient(client).
 		WithS3ForcePathStyle(opt.ForcePathStyle).
 		WithS3UseAccelerate(opt.UseAccelerateEndpoint).
-		WithS3UsEast1RegionalEndpoint(endpoints.RegionalS3UsEast1Endpoint)
+		WithS3UsEast1RegionalEndpoint(endpoints.RegionalS3UsEast1Endpoint).
+		WithCredentialsChainVerboseErrors(true)
 
 	if opt.Region != "" {
 		awsConfig.WithRegion(opt.Region)

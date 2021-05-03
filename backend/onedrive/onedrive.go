@@ -565,7 +565,7 @@ func shouldRetry(ctx context.Context, resp *http.Response, err error) (bool, err
 				fs.Debugf(nil, "Should retry: %v", err)
 			} else if err != nil && strings.Contains(err.Error(), "Unable to initialize RPS") {
 				retry = true
-				fs.Debugf(nil, "HTTP 401: Unable to initialize RPS. Trying again.")
+				fs.Debugf(nil, "HTTP 401: Unable to initialize RPS. Trying again. TEST")
 			}
 		case 429: // Too Many Requests.
 			// see https://docs.microsoft.com/en-us/sharepoint/dev/general-development/how-to-avoid-getting-throttled-or-blocked-in-sharepoint-online

@@ -23,27 +23,48 @@ with the [latest beta of rclone](https://beta.rclone.org/):
 If you find a bug that you'd like to fix, or a new feature that you'd
 like to implement then please submit a pull request via GitHub.
 
-If it is a big feature then make an issue first so it can be discussed.
-
-You'll need a Go environment set up with GOPATH set.  See [the Go
-getting started docs](https://golang.org/doc/install) for more info.
+If it is a big feature, then [make an issue](https://github.com/rclone/rclone/issues) first so it can be discussed.
 
 First in your web browser press the fork button on [rclone's GitHub
 page](https://github.com/rclone/rclone).
 
-Now in your terminal
+Then [install Git](https://git-scm.com/downloads) and set your public contribution [name](https://docs.github.com/en/github/getting-started-with-github/setting-your-username-in-git) and [email](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/setting-your-commit-email-address#setting-your-commit-email-address-in-git).
+
+Next open your terminal, change directory to your preferred folder and  initialize your local rclone project:
 
     git clone https://github.com/rclone/rclone.git
     cd rclone
     git remote rename origin upstream
+      # if you have SSH keys setup in your GitHub account:
     git remote add origin git@github.com:YOURUSER/rclone.git
-    go build
+      # otherwise:
+    git remote add origin https://github.com/YOURUSER/rclone.git
+
+Note that most of the terminal commands in the rest of this guide must be executed from the rclone folder created above.
+
+Now [install Go](https://golang.org/doc/install) and verify the [GOPATH](https://github.com/golang/go/wiki/GOPATH) is pointing to a suitable folder:
+
+    go env GOPATH
+
+Great, you can now compile and execute your own version of rclone:
+
+    go build                              
+    rclone version
+
+Finally update your forked code to the latest version of the [rclone master](https://github.com/rclone/rclone/tree/master):
+
+    git checkout master
+    git fetch upstream
+    git merge --ff-only
+    git push origin --follow-tags
 
 Make a branch to add your new feature
 
     git checkout -b my-new-feature
 
 And get hacking.
+
+You may like one of the [popular editors/IDE's for Go](https://github.com/golang/go/wiki/IDEsAndTextEditorPlugins).
 
 When ready - run the unit tests for the code you changed
 
